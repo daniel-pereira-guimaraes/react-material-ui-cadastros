@@ -14,7 +14,7 @@ export const AppRoutes = () => {
                     onClick={toggleDrawerOpen} 
                     variant='contained' 
                     color='primary'>
-                    Tema
+                    Menu
                 </Button>
             } />
             <Route path='*' element={<Navigate to="/" />} />
