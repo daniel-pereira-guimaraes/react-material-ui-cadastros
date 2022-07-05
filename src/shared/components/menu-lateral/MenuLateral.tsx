@@ -1,16 +1,49 @@
 import { Drawer, useTheme, Avatar, Divider, List, ListItemButton, ListItemIcon, ListItemText, Icon, useMediaQuery } from '@mui/material';
 import { Box } from '@mui/system';
 import { useDrawerContext } from '../../contexts';
+import { useNavigate, useResolvedPath, useMatch } from 'react-router-dom';
 
 interface IMenuLateralProps {
   children: React.ReactNode;
+};
+
+interface IListItemLinkProps {
+  icon: string;
+  label: string;
+  path: string;
+  onClick: (() => void) | undefined;
+}
+
+const ListItemLink: React.FC<IListItemLinkProps> = ({ icon, label, path, onClick }) => {
+
+  const navigate = useNavigate();
+  const resolvedPath = useResolvedPath(path);
+  const match = useMatch({path: resolvedPath.pathname, end: true });
+
+  console.log(label, !!match);
+
+  const handleClick = () => {
+    navigate(path);
+    onClick && onClick();
+  };
+
+  return (
+    <ListItemButton selected={!!match} onClick={handleClick}>
+    <ListItemIcon>
+      <Icon>{icon}</Icon>
+    </ListItemIcon>
+    <ListItemText primary={label} />
+  </ListItemButton>
+  );
 };
 
 export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
 
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
+  const { isDrawerOpen, drawerOptions, toggleDrawerOpen } = useDrawerContext();
+
+  const handleItemClick = smDown ? toggleDrawerOpen : undefined;
 
   return (
     <>
@@ -24,16 +57,17 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
           <Divider />
 
           <Box flex={1}>
-            
-            <List component="nav">
-              <ListItemButton>
-                <ListItemIcon>
-                  <Icon>home</Icon>
-                </ListItemIcon>
-                <ListItemText primary="Página inicial" />
-              </ListItemButton>
+            <List component='nav'>
+              {drawerOptions.map((option) => (
+                  <ListItemLink 
+                    key={option.path}
+                    icon={option.icon}
+                    label={option.label}
+                    path={option.path}
+                    onClick={handleItemClick} />
+                )
+              )};
             </List>
-
           </Box>
 
         </Box>
