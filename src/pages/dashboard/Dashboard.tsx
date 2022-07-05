@@ -1,4 +1,4 @@
-import { ToolBar } from '../../shared/components';
+import { ListToolBar } from '../../shared/components';
 import { BasePageLayout } from '../../shared/layouts';
 
 export const Dashboard = () => {
@@ -6,7 +6,7 @@ export const Dashboard = () => {
   return (
     <BasePageLayout 
       title='Página inicial'
-      toolBar={<ToolBar searchVisible />}
+      toolBar={<ListToolBar searchVisible />}
     >
       Conteúdo da página
 

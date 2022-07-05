@@ -1,2 +1,2 @@
 export * from './menu-lateral/MenuLateral';
-export * from './toolbar/ToolBar';
+export * from './list-tool-bar/ListToolBar';
