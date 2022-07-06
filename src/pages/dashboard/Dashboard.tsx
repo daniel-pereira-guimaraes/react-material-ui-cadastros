@@ -7,7 +7,7 @@ export const Dashboard = () => {
   return (
     <BasePageLayout 
       title='Página inicial'
-      toolBar={<EditToolBar saveAndBackButtonVisible />}
+      toolBar={<EditToolBar saveAndBackButtonVisible saveAndBackButtonLoading />}
     >
       Conteúdo da página
 

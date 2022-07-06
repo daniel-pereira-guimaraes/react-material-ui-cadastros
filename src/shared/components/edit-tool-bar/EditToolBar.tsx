@@ -1,13 +1,21 @@
 import React from "react";
-import { Box, Paper, useTheme, Button, Icon, Divider } from '@mui/material';
+import { Box, Paper, useTheme, Button, Icon, Divider, Skeleton } from '@mui/material';
 
 interface IEditToolBarProps {
   newButtonText?: string;
+
   saveButtonVisible?: boolean;
   saveAndBackButtonVisible?: boolean;
   deleteButtonVisible?: boolean;
   newButtonVisible?: boolean;
   backButtonVisible?: boolean;
+
+  saveButtonLoading?: boolean;
+  saveAndBackButtonLoading?: boolean;
+  deleteButtonLoading?: boolean;
+  newButtonLoading?: boolean;
+  backButtonLoading?: boolean;
+  
   saveButtonOnClick?: () => void;
   saveAndBackButtonOnClick?: () => void;
   deleteButtonOnClick?: () => void;
@@ -17,11 +25,19 @@ interface IEditToolBarProps {
 
 export const EditToolBar: React.FC<IEditToolBarProps> = ({
   newButtonText = 'Novo',
+  
   saveButtonVisible = true,
   saveAndBackButtonVisible = false,
   deleteButtonVisible = true,
   newButtonVisible = true,
   backButtonVisible = true,
+
+  saveButtonLoading = false,
+  saveAndBackButtonLoading = false,
+  deleteButtonLoading = false,
+  newButtonLoading = false,
+  backButtonLoading = false,
+  
   saveButtonOnClick,
   saveAndBackButtonOnClick,
   deleteButtonOnClick,
@@ -42,7 +58,7 @@ export const EditToolBar: React.FC<IEditToolBarProps> = ({
       height={theme.spacing(5)}
       component={Paper}>
          
-      {saveButtonVisible &&
+      {saveButtonVisible && !saveButtonLoading &&
         <Button 
           variant="contained" 
           color="primary" 
@@ -52,8 +68,11 @@ export const EditToolBar: React.FC<IEditToolBarProps> = ({
             Salvar
         </Button>
       }
+      {saveButtonLoading && 
+        <Skeleton width={110} height={60} />
+      }
 
-      {saveAndBackButtonVisible &&
+      {saveAndBackButtonVisible && !saveAndBackButtonLoading &&
         <Button 
           variant="outlined" 
           color="primary" 
@@ -63,8 +82,11 @@ export const EditToolBar: React.FC<IEditToolBarProps> = ({
             Salvar e voltar
         </Button>
       }
+      {saveAndBackButtonLoading && 
+        <Skeleton width={180} height={60} />
+      }
 
-      {deleteButtonVisible && 
+      {deleteButtonVisible && !deleteButtonLoading &&
         <Button 
           variant="outlined" 
           color="primary" 
@@ -74,8 +96,11 @@ export const EditToolBar: React.FC<IEditToolBarProps> = ({
             Apagar
         </Button>
       }
+      {deleteButtonLoading && 
+        <Skeleton width={110} height={60} />
+      }
 
-      {newButtonVisible && 
+      {newButtonVisible && !newButtonLoading &&
         <Button 
           variant="outlined" 
           color="primary" 
@@ -85,12 +110,14 @@ export const EditToolBar: React.FC<IEditToolBarProps> = ({
             {newButtonText}
         </Button>
       }
-
-      {backButtonVisible && 
-        <Divider variant="middle" orientation="vertical" />
+      {newButtonLoading && 
+        <Skeleton width={110} height={60} />
       }
 
-      {backButtonVisible &&
+      {backButtonVisible && !backButtonLoading &&
+        <Divider variant="middle" orientation="vertical" />
+      }
+      {backButtonVisible && !backButtonLoading &&
         <Button 
           variant="outlined" 
           color="primary" 
@@ -99,6 +126,9 @@ export const EditToolBar: React.FC<IEditToolBarProps> = ({
           onClick={backButtonOnClick}>
             Voltar
         </Button>
+      }
+      {backButtonLoading && 
+        <Skeleton width={110} height={60} />
       }
 
     </Box>
