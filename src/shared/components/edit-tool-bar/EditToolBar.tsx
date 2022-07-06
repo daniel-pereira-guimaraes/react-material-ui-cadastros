@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Paper, useTheme, Button, Icon, Divider, Skeleton } from '@mui/material';
+import { Box, Paper, useTheme, Button, Icon, Divider, 
+  Skeleton, Typography, useMediaQuery } from '@mui/material';
 
 interface IEditToolBarProps {
   newButtonText?: string;
@@ -46,6 +47,9 @@ export const EditToolBar: React.FC<IEditToolBarProps> = ({
 }) => {
 
   const theme = useTheme();
+  const lgDown = useMediaQuery(theme.breakpoints.down('lg'));
+  const mdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box 
@@ -65,58 +69,84 @@ export const EditToolBar: React.FC<IEditToolBarProps> = ({
           disableElevation
           startIcon={<Icon>save</Icon>}
           onClick={saveButtonOnClick}>
-            Salvar
+            <Typography 
+              variant="button" 
+              whiteSpace="nowrap" 
+              textOverflow="ellipsis" 
+              overflow="hidden">
+                Salvar
+            </Typography>
         </Button>
       }
       {saveButtonLoading && 
         <Skeleton width={110} height={60} />
       }
 
-      {saveAndBackButtonVisible && !saveAndBackButtonLoading &&
+      {saveAndBackButtonVisible && !saveAndBackButtonLoading && !lgDown &&
         <Button 
           variant="outlined" 
           color="primary" 
           disableElevation
           startIcon={<Icon>save</Icon>}
           onClick={saveAndBackButtonOnClick}>
-            Salvar e voltar
+            <Typography 
+              variant="button" 
+              whiteSpace="nowrap" 
+              textOverflow="ellipsis" 
+              overflow="hidden">
+                Salvar e voltar
+            </Typography>
         </Button>
       }
-      {saveAndBackButtonLoading && 
+      {saveAndBackButtonLoading && !lgDown &&
         <Skeleton width={180} height={60} />
       }
 
-      {deleteButtonVisible && !deleteButtonLoading &&
+      {deleteButtonVisible && !deleteButtonLoading && !smDown &&
         <Button 
           variant="outlined" 
           color="primary" 
           disableElevation
           startIcon={<Icon>delete</Icon>}
           onClick={deleteButtonOnClick}>
-            Apagar
+            <Typography 
+              variant="button" 
+              whiteSpace="nowrap" 
+              textOverflow="ellipsis" 
+              overflow="hidden">
+                Apagar
+            </Typography>
         </Button>
       }
-      {deleteButtonLoading && 
+      {deleteButtonLoading && !smDown &&
         <Skeleton width={110} height={60} />
       }
 
-      {newButtonVisible && !newButtonLoading &&
+      {newButtonVisible && !newButtonLoading && !mdDown &&
         <Button 
           variant="outlined" 
           color="primary" 
           disableElevation
           startIcon={<Icon>add</Icon>}
           onClick={newButtonOnClick}>
-            {newButtonText}
+            <Typography 
+              variant="button" 
+              whiteSpace="nowrap" 
+              textOverflow="ellipsis" 
+              overflow="hidden">
+                {newButtonText}
+            </Typography>
         </Button>
       }
-      {newButtonLoading && 
+      {newButtonLoading && !mdDown &&
         <Skeleton width={110} height={60} />
       }
 
-      {backButtonVisible && !backButtonLoading &&
+      { backButtonVisible && 
+        (saveButtonVisible || saveAndBackButtonVisible ||  deleteButtonVisible || newButtonVisible) && 
         <Divider variant="middle" orientation="vertical" />
       }
+
       {backButtonVisible && !backButtonLoading &&
         <Button 
           variant="outlined" 
@@ -124,7 +154,13 @@ export const EditToolBar: React.FC<IEditToolBarProps> = ({
           disableElevation
           startIcon={<Icon>arrow_back</Icon>}
           onClick={backButtonOnClick}>
-            Voltar
+            <Typography 
+              variant="button" 
+              whiteSpace="nowrap" 
+              textOverflow="ellipsis" 
+              overflow="hidden">
+                Voltar
+            </Typography>
         </Button>
       }
       {backButtonLoading && 
