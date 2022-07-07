@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Paper, TextField, Button, useTheme, Icon } from "@mui/material";
+import { Environment } from "../../environment";
 
 interface IListToolBarProps {
   searchVisible?: boolean;
@@ -35,7 +36,7 @@ export const ListToolBar: React.FC<IListToolBarProps> = ({
       {searchVisible &&
         <TextField 
           size="small"
-          placeholder="Pesquisar"
+          placeholder={Environment.INPUT_DE_BUSCA}
           value={searchText}
           onChange={(e) => searchOnChange?.(e.target.value)}
         />
