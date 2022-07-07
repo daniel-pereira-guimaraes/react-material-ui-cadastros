@@ -13,7 +13,12 @@ export const Environment = {
   /**
    * Mensagem para ser exibida em listagens vazias.
    */
-  LISTAGEM_VAZIA: 'Nenhum registro encontrado.',
+  NENHUM_REGISTRO: 'Nenhum registro encontrado.',
+
+  /**
+   * Mensagem de erro padrão para quando ocorrer erro desconhecido durante acesso aos dados.
+   */
+  ERRO_ACESSO_DADOS: 'Erro ao acessar os dados.',
 
   /**
    * URL base para acesso à API.
