@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { ListToolBar } from "../../shared/components";
 import { useDebounce } from "../../shared/hooks";
 import { BasePageLayout } from "../../shared/layouts";
 import { CidadesService, ICidades } from "../../shared/services/api/cidades/CidadesService";
+import { Environment } from "../../shared/environment";
 
 
 export const ListagemCidades: React.FC = () => {
@@ -54,6 +55,7 @@ export const ListagemCidades: React.FC = () => {
           sx={{ m:1, width: "auto" }}
         >
           <Table>
+            
             <TableHead>
               <TableRow>
                 <TableCell>Ações</TableCell>
@@ -61,6 +63,7 @@ export const ListagemCidades: React.FC = () => {
                 <TableCell>Nome</TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
               {rows.map(row => (
                 <TableRow key={row.id}>
@@ -69,8 +72,22 @@ export const ListagemCidades: React.FC = () => {
                   <TableCell>{row.nome}</TableCell>
                 </TableRow>
               ))}
-           
             </TableBody>
+
+            {totalCount === 0 && !isLoading &&
+              (<caption>{Environment.NENHUM_REGISTRO}</caption>)
+            }
+
+            {isLoading && (
+              <TableFooter>
+                <TableRow>
+                  <TableCell colSpan={3}>
+                    <LinearProgress variant="indeterminate" />
+                  </TableCell>
+                </TableRow>
+              </TableFooter>
+            )}
+
           </Table>
         </TableContainer>
     </BasePageLayout>
