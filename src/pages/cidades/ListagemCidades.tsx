@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
+import { LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { ListToolBar } from "../../shared/components";
 import { useDebounce } from "../../shared/hooks";
 import { BasePageLayout } from "../../shared/layouts";
@@ -20,10 +20,14 @@ export const ListagemCidades: React.FC = () => {
     return searchParams.get('busca') || '';
   }, [searchParams]);
 
+  const pagina = useMemo(() => {
+    return Number(searchParams.get('pagina') || 1);
+  }, [searchParams]);
+
   useEffect(() => {
     setIsLoading(true);
     debounce(() => {
-      CidadesService.getAll(1, busca)
+      CidadesService.getAll(pagina, busca)
         .then(result => {
           setIsLoading(false);
           if (result instanceof Error)
@@ -34,7 +38,7 @@ export const ListagemCidades: React.FC = () => {
           }
         });
     });
-  }, [busca, debounce]);
+  }, [busca, pagina, debounce]);
 
   console.log('Renderizando ListagemCidades');
   return (
@@ -45,7 +49,7 @@ export const ListagemCidades: React.FC = () => {
           searchVisible
           newButtonText="Nova" 
           searchText={busca}
-          searchOnChange={texto => setSearchParams({busca: texto}, {replace: true})}
+          searchOnChange={texto => setSearchParams({busca: texto, pagina: '1'}, {replace: true})}
         />
       }>
 
@@ -78,15 +82,29 @@ export const ListagemCidades: React.FC = () => {
               (<caption>{Environment.NENHUM_REGISTRO}</caption>)
             }
 
-            {isLoading && (
-              <TableFooter>
+            <TableFooter>
+              {totalCount > Environment.LIMITE_DE_LINHAS && (
+                <TableRow>
+                  <TableCell colSpan={3}>
+                    <Pagination 
+                      page={pagina}
+                      count={Math.ceil(totalCount / Environment.LIMITE_DE_LINHAS) } 
+                      onChange={(e,p) => setSearchParams({busca, pagina: p.toString()}, {replace: true})}
+                    />
+                  </TableCell>
+                </TableRow>
+              )}
+
+              {isLoading && (
                 <TableRow>
                   <TableCell colSpan={3}>
                     <LinearProgress variant="indeterminate" />
                   </TableCell>
                 </TableRow>
-              </TableFooter>
-            )}
+              )}
+
+
+            </TableFooter>
 
           </Table>
         </TableContainer>
