@@ -13,7 +13,8 @@ type TCidades = {
 
 const getAll = async(page = 1, filter = ''): Promise<TCidades | Error> => {
   try {
-    const urlRelativa = `/cidades?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like${filter}`;
+    const urlRelativa = `/cidades?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`;
+    console.log(urlRelativa);
     const { data, headers } = await Api.get(urlRelativa);
 
     if (data) 

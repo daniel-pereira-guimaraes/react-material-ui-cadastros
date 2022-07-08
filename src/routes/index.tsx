@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { /*useAppThemeContext,*/ useDrawerContext } from '../shared/contexts';
 import { useEffect } from 'react';
 import { Dashboard } from '../pages';
+import { ListagemCidades } from '../pages/cidades/ListagemCidades';
 
 export const AppRoutes = () => {
 
@@ -21,9 +22,9 @@ export const AppRoutes = () => {
                 path: '/pessoas'
             },
             {
-                icon: 'circle',
-                label: 'Contas',
-                path: '/contas'
+                icon: 'location_city',
+                label: 'Cidades',
+                path: '/cidades'
             }
 
         ]);
@@ -36,7 +37,7 @@ export const AppRoutes = () => {
             <Routes>
                 <Route path='/' element={<Dashboard />} />
                 <Route path='/pessoas' element={<h1>Cadastro de pessoas</h1>} />
-                <Route path='/contas' element={<h1>Cadastro de contas</h1>} />
+                <Route path='/cidades' element={<ListagemCidades />} />
                 <Route path='*' element={<Navigate to="/" />} />
             </Routes>
         </>

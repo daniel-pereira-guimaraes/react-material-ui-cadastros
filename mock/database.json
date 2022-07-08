@@ -1,9 +1,37 @@
 {
   "pessoas": [
     {
-      "id":1, 
-      "nome":"Daniel",
-      "sobrenome":"Guimarães"
+      "id":1,
+      "email":"fulano@servidor.com",
+      "nome":"Fulano de Tal",
+      "cidadeId":1
+    },
+    {
+      "id":2,
+      "email":"ciclano@servidor.com",
+      "nome":"Ciclano Souza",
+      "cidadeId":1
+    },
+    {
+      "id":3,
+      "email":"beltrano@servidor.com",
+      "nome":"Beltrano da Silva",
+      "cidadeId":4
+    },
+    {
+      "id":4,
+      "email":"dompedro1@servidor.com.br",
+      "nome":"Dom Pedro Primeiro",
+      "cidadeId":2
     }
+  ],
+
+  "cidades": [
+    {"id":1, "nome":"Porto Velho"},
+    {"id":2, "nome":"Ariquemes"},
+    {"id":3, "nome":"Jaru"},
+    {"id":4, "nome":"Ouro Preto d'Oeste"},
+    {"id":5, "nome":"Ji-Paraná"}
   ]
+
 }
