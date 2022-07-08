@@ -1,8 +1,9 @@
 import React from "react";
 import { Box, Paper, useTheme, Button, Icon, Divider, 
   Skeleton, Typography, useMediaQuery } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
-interface IEditToolBarProps {
+interface IDetailToolBarProps {
   newButtonText?: string;
 
   saveButtonVisible?: boolean;
@@ -24,7 +25,7 @@ interface IEditToolBarProps {
   backButtonOnClick?: () => void;
 }
 
-export const EditToolBar: React.FC<IEditToolBarProps> = ({
+export const DetailToolBar: React.FC<IDetailToolBarProps> = ({
   newButtonText = 'Novo',
   
   saveButtonVisible = true,
@@ -46,6 +47,7 @@ export const EditToolBar: React.FC<IEditToolBarProps> = ({
   backButtonOnClick
 }) => {
 
+  const navigate = useNavigate();
   const theme = useTheme();
   const lgDown = useMediaQuery(theme.breakpoints.down('lg'));
   const mdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -153,7 +155,7 @@ export const EditToolBar: React.FC<IEditToolBarProps> = ({
           color="primary" 
           disableElevation
           startIcon={<Icon>arrow_back</Icon>}
-          onClick={backButtonOnClick}>
+          onClick={backButtonOnClick || (() => { navigate(-1)})}>
             <Typography 
               variant="button" 
               whiteSpace="nowrap" 

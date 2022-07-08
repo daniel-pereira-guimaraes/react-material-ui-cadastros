@@ -62,8 +62,9 @@ export const ListagemCidades: React.FC = () => {
       toolBar={
         <ListToolBar 
           searchVisible
-          newButtonText="Nova" 
           searchText={busca}
+          newButtonText="Nova" 
+          newButtonOnClick={() => navigate('/cidades/detalhe/nova')}
           searchOnChange={texto => setSearchParams({busca: texto, pagina: '1'}, {replace: true})}
         />
       }>
@@ -89,7 +90,7 @@ export const ListagemCidades: React.FC = () => {
                   <TableCell size="small">{row.id}</TableCell>
                   <TableCell size="small">{row.nome}</TableCell>
                   <TableCell size="small">
-                    <IconButton size="small" onClick={() => navigate(`/cidades/${row.id}`)}>
+                    <IconButton size="small" onClick={() => navigate(`/cidades/detalhe/${row.id}`)}>
                       <Icon>edit</Icon>
                     </IconButton>
                     <IconButton size="small" onClick={()=> handleDelete(row.id)}>

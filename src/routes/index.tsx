@@ -1,8 +1,7 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { /*useAppThemeContext,*/ useDrawerContext } from '../shared/contexts';
 import { useEffect } from 'react';
-import { Dashboard } from '../pages';
-import { ListagemCidades } from '../pages/cidades/ListagemCidades';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useDrawerContext } from '../shared/contexts';
+import { Dashboard, DetalheCidade, ListagemCidades } from '../pages';
 
 export const AppRoutes = () => {
 
@@ -38,7 +37,7 @@ export const AppRoutes = () => {
                 <Route path='/' element={<Dashboard />} />
                 <Route path='/pessoas' element={<h1>Cadastro de pessoas</h1>} />
                 <Route path='/cidades' element={<ListagemCidades />} />
-                <Route path='/cidades/:id' element={<p>Editando cidade...</p>} />
+                <Route path='/cidades/detalhe/:id' element={<DetalheCidade />} />
                 <Route path='*' element={<Navigate to="/" />} />
             </Routes>
         </>
