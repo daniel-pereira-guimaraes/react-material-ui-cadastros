@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { ListToolBar } from "../../shared/components";
 import { useDebounce } from "../../shared/hooks";
 import { BasePageLayout } from "../../shared/layouts";
 import { CidadesService, ICidades } from "../../shared/services/api/cidades/CidadesService";
 import { Environment } from "../../shared/environment";
+import { padding } from "@mui/system";
 
 
 export const ListagemCidades: React.FC = () => {
@@ -14,6 +15,7 @@ export const ListagemCidades: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
   const [rows, setRows] = useState<ICidades>([]);
+  const navigate = useNavigate();
   const debounce = useDebounce();
   
   const busca = useMemo(() => {
@@ -38,7 +40,20 @@ export const ListagemCidades: React.FC = () => {
           }
         });
     });
-  }, [busca, pagina, debounce]);
+  }, [busca, pagina]);
+
+  const handleDelete = (id: number) => {
+    //eslint-disable-next-line
+    if (confirm(Environment.CONF_EXCLUIR_REGISTRO)) {
+      CidadesService.deleteById(id)
+        .then(result => {
+          if (result instanceof Error)
+            alert(result.message);
+          else
+            setRows(oldRows => oldRows.filter(oldRow => oldRow.id !== id));
+        })
+    }
+  }
 
   console.log('Renderizando ListagemCidades');
   return (
@@ -62,18 +77,25 @@ export const ListagemCidades: React.FC = () => {
             
             <TableHead>
               <TableRow>
-                <TableCell>Ações</TableCell>
-                <TableCell>Código</TableCell>
-                <TableCell>Nome</TableCell>
+                <TableCell size="small">Código</TableCell>
+                <TableCell size="small">Nome</TableCell>
+                <TableCell size="small">Ações</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
               {rows.map(row => (
                 <TableRow key={row.id}>
-                  <TableCell>Ações</TableCell>
-                  <TableCell>{row.id}</TableCell>
-                  <TableCell>{row.nome}</TableCell>
+                  <TableCell size="small">{row.id}</TableCell>
+                  <TableCell size="small">{row.nome}</TableCell>
+                  <TableCell size="small">
+                    <IconButton size="small" onClick={() => navigate(`/cidades/${row.id}`)}>
+                      <Icon>edit</Icon>
+                    </IconButton>
+                    <IconButton size="small" onClick={()=> handleDelete(row.id)}>
+                      <Icon>delete</Icon>
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

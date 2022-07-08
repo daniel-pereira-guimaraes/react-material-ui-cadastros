@@ -1,47 +1,44 @@
 {
   "pessoas": [
     {
-      "id":1,
-      "email":"fulano@servidor.com",
-      "nome":"Fulano de Tal",
-      "cidadeId":1
-    },
-    {
-      "id":2,
-      "email":"ciclano@servidor.com",
-      "nome":"Ciclano Souza",
-      "cidadeId":1
-    },
-    {
-      "id":3,
-      "email":"beltrano@servidor.com",
-      "nome":"Beltrano da Silva",
-      "cidadeId":4
-    },
-    {
-      "id":4,
-      "email":"dompedro1@servidor.com.br",
-      "nome":"Dom Pedro Primeiro",
-      "cidadeId":2
+      "id": 4,
+      "email": "dompedro1@servidor.com.br",
+      "nome": "Dom Pedro Primeiro",
+      "cidadeId": 2
     }
   ],
-
   "cidades": [
-    {"id":1, "nome":"Porto Velho"},
-    {"id":2, "nome":"Ariquemes"},
-    {"id":3, "nome":"Jaru"},
-    {"id":4, "nome":"Ouro Preto d'Oeste"},
-    {"id":5, "nome":"Ji-Paraná"},
-    {"id":6, "nome":"Presidente Médici"},
-    {"id":7, "nome":"Cacoal"},
-    {"id":8, "nome":"Pimenta Bueno"},
-    {"id":9, "nome":"Vilhena"},
-    {"id":10, "nome":"Espigão d'Oeste"},
-    {"id":11, "nome":"Rolim de Moura"},
-    {"id":12, "nome":"Alvorada"},
-    {"id":13, "nome":"Urupá"},
-    {"id":14, "nome":"Mirante da Serra"},
-    {"id":15, "nome":"Theobroma"}
+    {
+      "id": 2,
+      "nome": "Ariquemes"
+    },
+    {
+      "id": 5,
+      "nome": "Ji-Paraná"
+    },
+    {
+      "id": 6,
+      "nome": "Presidente Médici"
+    },
+    {
+      "id": 8,
+      "nome": "Pimenta Bueno"
+    },
+    {
+      "id": 9,
+      "nome": "Vilhena"
+    },
+    {
+      "id": 10,
+      "nome": "Espigão d'Oeste"
+    },
+    {
+      "id": 12,
+      "nome": "Alvorada"
+    },
+    {
+      "id": 13,
+      "nome": "Urupá"
+    }
   ]
-
 }

@@ -28,6 +28,11 @@ export const Environment = {
   /**
    * Atraso, em milissegundos, para fazer busca após digitação.
    */
-  DEBOUNCE_DELAY: 2000
+  DEBOUNCE_DELAY: 2000,
+
+  /**
+   * 
+   */
+  CONF_EXCLUIR_REGISTRO: 'Confirma a exclusão?',
 
 }
