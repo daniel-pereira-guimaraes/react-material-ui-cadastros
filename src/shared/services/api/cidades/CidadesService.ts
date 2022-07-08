@@ -1,13 +1,15 @@
 import { Environment } from "../../../environment";
 import { Api } from "../axios-config";
 
-interface ICidade {
+export interface ICidade {
   id: number;
   nome: number;
 }
 
+export type ICidades = ICidade[];
+
 type TCidades = {
-  data: ICidade[];
+  data: ICidades;
   totalCount: number;
 }
 
