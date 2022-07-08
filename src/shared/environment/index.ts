@@ -25,4 +25,9 @@ export const Environment = {
    */
   URL_BASE: 'http://localhost:3333',
 
+  /**
+   * Atraso, em milissegundos, para fazer busca após digitação.
+   */
+  DEBOUNCE_DELAY: 2000
+
 }
