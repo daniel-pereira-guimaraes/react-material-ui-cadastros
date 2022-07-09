@@ -13,10 +13,6 @@
       "nome": "Ariquemes"
     },
     {
-      "id": 5,
-      "nome": "Ji-Paraná"
-    },
-    {
       "id": 6,
       "nome": "Presidente Médici"
     },
@@ -35,10 +31,6 @@
     {
       "id": 12,
       "nome": "Alvorada"
-    },
-    {
-      "id": 13,
-      "nome": "Urupá"
     }
   ]
 }

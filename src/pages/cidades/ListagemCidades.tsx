@@ -6,8 +6,6 @@ import { useDebounce } from "../../shared/hooks";
 import { BasePageLayout } from "../../shared/layouts";
 import { CidadesService, ICidades } from "../../shared/services/api/cidades/CidadesService";
 import { Environment } from "../../shared/environment";
-import { padding } from "@mui/system";
-
 
 export const ListagemCidades: React.FC = () => {
 
@@ -40,7 +38,7 @@ export const ListagemCidades: React.FC = () => {
           }
         });
     });
-  }, [busca, pagina]);
+  }, [busca, pagina, debounce]);
 
   const handleDelete = (id: number) => {
     //eslint-disable-next-line

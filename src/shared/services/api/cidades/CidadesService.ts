@@ -3,7 +3,7 @@ import { Api } from "../axios-config";
 
 export interface ICidade {
   id: number;
-  nome: number;
+  nome?: string;
 }
 
 export type ICidades = ICidade[];
@@ -15,6 +15,7 @@ type TCidades = {
 
 const getAll = async(page = 1, filter = ''): Promise<TCidades | Error> => {
   try {
+    //await new Promise(resolve => setTimeout(resolve, 1000));
     const urlRelativa = `/cidades?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`;
     console.log(urlRelativa);
     const { data, headers } = await Api.get(urlRelativa);
@@ -35,6 +36,7 @@ const getAll = async(page = 1, filter = ''): Promise<TCidades | Error> => {
 
 const getById = async(id: number): Promise<ICidade | Error> => {
   try {
+    await new Promise(resolve => setTimeout(resolve, 3000));
     const { data } = await Api.get(`/cidades/${id}`);
     if (data) 
       return data;

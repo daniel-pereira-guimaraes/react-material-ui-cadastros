@@ -1,11 +1,11 @@
 import React from "react";
 import { Box } from '@mui/system';
-import { Typography, useTheme, IconButton, Icon, useMediaQuery } from '@mui/material';
+import { Typography, useTheme, IconButton, Icon, useMediaQuery, Skeleton } from '@mui/material';
 import { useDrawerContext } from "../contexts";
 
 interface IBasePageLayoutProps {
   children: React.ReactNode;
-  title: string;  
+  title?: string;  
   toolBar?: React.ReactNode;
 }
 
@@ -33,15 +33,19 @@ export const BasePageLayout: React.FC<IBasePageLayoutProps> = ({ children, title
           </IconButton>
         }
       
-        <Typography 
-          variant={smDown ? 'h5' : mdDown ? 'h4' : 'h3'}
-          component="h2"
-          whiteSpace="nowrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-        >
-          {title}
-        </Typography>
+        {!title && <Skeleton width={200} height={50} />}
+
+        {title &&
+          <Typography 
+            variant={smDown ? 'h5' : mdDown ? 'h4' : 'h3'}
+            component="h2"
+            whiteSpace="nowrap"
+            overflow="hidden"
+            textOverflow="ellipsis"
+          >
+            {title}
+          </Typography>
+        }
       
       </Box>
 
