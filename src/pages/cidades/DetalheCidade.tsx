@@ -1,11 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom"
+import { Form } from '@unform/web';
 
 import { BasePageLayout } from "../../shared/layouts"
 import { DetailToolBar } from "../../shared/components"
 import { CidadesService, ICidade } from "../../shared/services/api/cidades/CidadesService";
 import { Environment } from "../../shared/environment";
 import { useEffect, useState } from "react";
-import { LinearProgress } from "@mui/material";
+import { VTextField } from "../../shared/forms";
+//import { LinearProgress } from "@mui/material";
 
 export const DetalheCidade: React.FC = () => {
 
@@ -49,6 +51,10 @@ export const DetalheCidade: React.FC = () => {
       }); 
     }
   }
+
+  // { isLoading && // <LinearProgress variant="indeterminate"/> }
+
+  // { !isLoading &&<pre>{JSON.stringify(cidade, null, 2)}</pre> }
   
   return (
     <BasePageLayout 
@@ -65,12 +71,16 @@ export const DetalheCidade: React.FC = () => {
           backButtonOnClick={() => navigate('/cidades')}
         />
       }>
-        {isLoading && 
-          <LinearProgress variant="indeterminate"/>
-        }
-        
-        {!isLoading &&<pre>{JSON.stringify(cidade, null, 2)}</pre>}
-    </BasePageLayout>
-  )
 
-}
+        <Form onSubmit={(dados) => console.log(dados)}>
+
+          <VTextField name="nome"/>
+
+          <button type="submit">Submit</button>
+
+        </Form>
+
+    </BasePageLayout>
+  );
+
+};
