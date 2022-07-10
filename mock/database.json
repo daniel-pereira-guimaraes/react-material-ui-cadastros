@@ -9,40 +9,75 @@
   ],
   "cidades": [
     {
-      "nome": "Ariquemes",
-      "id": 2
+      "id": 2,
+      "nome": "ARIQUEMES",
+      "ddd": "69",
+      "codigoIBGE": "999999"
     },
     {
       "id": 6,
-      "nome": "Presidente Médici"
+      "nome": "Presidente Médicix",
+      "ddd": "69",
+      "codigoIBGE": "123457"
     },
     {
       "id": 8,
-      "nome": "Pimenta Bueno"
+      "nome": "Pimenta Bueno",
+      "ddd": "69",
+      "codigoIBGE": "123458"
     },
     {
-      "nome": "VLH",
-      "id": 9
+      "id": 9,
+      "nome": "VILHENA",
+      "ddd": "69",
+      "codigoIBGE": "123451"
     },
     {
       "id": 10,
-      "nome": "Espigão d'Oeste"
+      "nome": "Espigão d'Oeste",
+      "ddd": "69",
+      "codigoIBGE": "123452"
     },
     {
       "id": 12,
-      "nome": "Alvorada"
+      "nome": "Alvorada",
+      "ddd": "69",
+      "codigoIBGE": "123453"
     },
     {
+      "id": 13,
       "nome": "São Paulo",
-      "id": 13
+      "ddd": "69",
+      "codigoIBGE": "123454"
     },
     {
+      "id": 14,
       "nome": "Rio de Janeiro",
-      "id": 14
+      "ddd": "69",
+      "codigoIBGE": "123455"
     },
     {
+      "id": 15,
       "nome": "São Carlos",
-      "id": 15
+      "ddd": "69",
+      "codigoIBGE": "123459"
+    },
+    {
+      "id": 16,
+      "ddd": "69",
+      "codigoIBGE": "45464564"
+    },
+    {
+      "id": 17,
+      "nome": "Nova Cidade",
+      "ddd": "69",
+      "codigoIBGE": "21321321"
+    },
+    {
+      "id": 18,
+      "nome": "Segunda cidade teste",
+      "ddd": "",
+      "codigoIBGE": ""
     }
   ]
 }

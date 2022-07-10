@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
+import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
 import { ListToolBar } from "../../shared/components";
 import { useDebounce } from "../../shared/hooks";
 import { BasePageLayout } from "../../shared/layouts";
@@ -15,6 +15,9 @@ export const ListagemCidades: React.FC = () => {
   const [rows, setRows] = useState<ICidades>([]);
   const navigate = useNavigate();
   const debounce = useDebounce();
+  const theme = useTheme();
+  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const smUp = useMediaQuery(theme.breakpoints.up('sm'));
   
   const busca = useMemo(() => {
     return searchParams.get('busca') || '';
@@ -76,8 +79,10 @@ export const ListagemCidades: React.FC = () => {
             
             <TableHead>
               <TableRow>
-                <TableCell size="small">Código</TableCell>
+                {mdUp && <TableCell size="small">ID</TableCell>}
                 <TableCell size="small">Nome</TableCell>
+                {smUp && <TableCell size="small">DDD</TableCell>}
+                {mdUp && <TableCell size="small">Código IBGE</TableCell>}
                 <TableCell size="small">Ações</TableCell>
               </TableRow>
             </TableHead>
@@ -85,8 +90,10 @@ export const ListagemCidades: React.FC = () => {
             <TableBody>
               {rows.map(row => (
                 <TableRow key={row.id}>
-                  <TableCell size="small">{row.id}</TableCell>
+                  {mdUp && <TableCell size="small">{row.id}</TableCell>}
                   <TableCell size="small">{row.nome}</TableCell>
+                  {smUp && <TableCell size="small">{row.ddd}</TableCell>}
+                  {mdUp && <TableCell size="small">{row.codigoIBGE}</TableCell>}
                   <TableCell size="small">
                     <IconButton size="small" onClick={() => navigate(`/cidades/detalhe/${row.id}`)}>
                       <Icon>edit</Icon>
@@ -102,32 +109,18 @@ export const ListagemCidades: React.FC = () => {
             {totalCount === 0 && !isLoading &&
               (<caption>{Environment.NENHUM_REGISTRO}</caption>)
             }
-
-            <TableFooter>
-              {totalCount > Environment.LIMITE_DE_LINHAS && (
-                <TableRow>
-                  <TableCell colSpan={3}>
-                    <Pagination 
-                      page={pagina}
-                      count={Math.ceil(totalCount / Environment.LIMITE_DE_LINHAS) } 
-                      onChange={(e,p) => setSearchParams({busca, pagina: p.toString()}, {replace: true})}
-                    />
-                  </TableCell>
-                </TableRow>
-              )}
-
-              {isLoading && (
-                <TableRow>
-                  <TableCell colSpan={3}>
-                    <LinearProgress variant="indeterminate" />
-                  </TableCell>
-                </TableRow>
-              )}
-
-
-            </TableFooter>
-
           </Table>
+
+          {totalCount > Environment.LIMITE_DE_LINHAS && (
+            <Pagination 
+              page={pagina}
+              count={Math.ceil(totalCount / Environment.LIMITE_DE_LINHAS) } 
+              onChange={(e,p) => setSearchParams({busca, pagina: p.toString()}, {replace: true})}
+            />
+          )}
+
+          {isLoading && <LinearProgress variant="indeterminate" />}
+
         </TableContainer>
     </BasePageLayout>
   );

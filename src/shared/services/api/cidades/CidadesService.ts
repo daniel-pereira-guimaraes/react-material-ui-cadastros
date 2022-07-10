@@ -3,7 +3,9 @@ import { Api } from "../axios-config";
 
 export interface ICidade {
   id: number;
-  nome?: string;
+  nome: string;
+  ddd: string;
+  codigoIBGE: string;
 }
 
 export type ICidades = ICidade[];
