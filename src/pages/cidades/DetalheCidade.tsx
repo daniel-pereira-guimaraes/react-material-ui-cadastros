@@ -1,10 +1,8 @@
-import { Form } from '@unform/web';
-import { FormHandles } from "@unform/core";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import { Box, Grid, LinearProgress, Paper, Typography } from "@mui/material";
 
-import { VTextField } from "../../shared/forms";
-import { useEffect, useRef, useState } from "react";
+import { useVForm, VForm, VTextField } from "../../shared/forms";
 import { BasePageLayout } from "../../shared/layouts"
 import { Environment } from "../../shared/environment";
 import { DetailToolBar } from "../../shared/components"
@@ -16,7 +14,7 @@ export const DetalheCidade: React.FC = () => {
   const {id = 'nova'} = useParams<'id'>();
   const [title, setTitle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const formRef = useRef<FormHandles>(null);
+  const {formRef, save, saveAndBack, actionAfterSave } =  useVForm();
   const novaCidade = id === 'nova';
 
   useEffect(() => {
@@ -33,6 +31,10 @@ export const DetalheCidade: React.FC = () => {
           formRef.current?.setData(result);
         }
       });
+    } else {
+      formRef.current?.setData(
+        {id: '', nome: '', ddd: '', codigoIBGE: ''}
+      );
     }
     return () => {
       setIsLoading(false);
@@ -43,14 +45,6 @@ export const DetalheCidade: React.FC = () => {
     navigate('/cidades');
   }
   
-  const handleSaveButtonClick = () => {
-    formRef.current?.submitForm();
-  }
-  
-  const handleSaveAndBackButtonClick = () => {
-    formRef.current?.submitForm();
-  }
-
   const handleDeleteButtonClick = () => {
     //eslint-disable-next-line
     if (confirm(Environment.CONF_EXCLUIR_REGISTRO)) {
@@ -76,6 +70,8 @@ export const DetalheCidade: React.FC = () => {
           setIsLoading(false);
           if (result instanceof Error)
             alert(result.message);
+          else if (actionAfterSave() === 'close')
+            navigate('/cidades');
           else
             navigate(`/cidades/detalhe/${result}`);
         });
@@ -85,6 +81,8 @@ export const DetalheCidade: React.FC = () => {
           setIsLoading(false);
           if (result instanceof Error)
             alert(result.message);
+          else if (actionAfterSave() === 'close')
+            navigate('/cidades');
         });
     };
   }
@@ -94,21 +92,21 @@ export const DetalheCidade: React.FC = () => {
       title={novaCidade ? 'Nova cidade' : title || 'Detalhes da cidade'}
       toolBar={
         <DetailToolBar
-          saveAndBackButtonVisible
+          saveAndCloseButtonVisible
           newButtonText="Nova"
           deleteButtonVisible={!novaCidade}
-          saveButtonOnClick={handleSaveButtonClick}
-          saveAndBackButtonOnClick={handleSaveAndBackButtonClick}
+          saveButtonOnClick={save}
+          saveAndCloseButtonOnClick={saveAndBack}
           deleteButtonOnClick={handleDeleteButtonClick}
           newButtonOnClick={handleNewButtonOnClick}
-          backButtonOnClick={handleBackButtonClick}
+          closeButtonOnClick={handleBackButtonClick}
           saveButtonLoading={isLoading}
-          saveAndBackButtonLoading={isLoading}
+          saveAndCloseButtonLoading={isLoading}
           deleteButtonLoading={isLoading}
         />
       }>
 
-      <Form ref={formRef} onSubmit={handleFormSubmit}>
+      <VForm ref={formRef} onSubmit={handleFormSubmit}>
         <Box margin={1} display="flex" flexDirection="column" component={Paper} variant="outlined">
           <Grid container direction="column" padding={2} spacing={2}>
 
@@ -160,7 +158,7 @@ export const DetalheCidade: React.FC = () => {
 
           </Grid>
         </Box>
-      </Form>
+      </VForm>
     </BasePageLayout>
   );
 };

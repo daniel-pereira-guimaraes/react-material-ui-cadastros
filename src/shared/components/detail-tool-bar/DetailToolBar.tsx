@@ -7,44 +7,44 @@ interface IDetailToolBarProps {
   newButtonText?: string;
 
   saveButtonVisible?: boolean;
-  saveAndBackButtonVisible?: boolean;
+  saveAndCloseButtonVisible?: boolean;
   deleteButtonVisible?: boolean;
   newButtonVisible?: boolean;
-  backButtonVisible?: boolean;
+  closeButtonVisible?: boolean;
 
   saveButtonLoading?: boolean;
-  saveAndBackButtonLoading?: boolean;
+  saveAndCloseButtonLoading?: boolean;
   deleteButtonLoading?: boolean;
   newButtonLoading?: boolean;
-  backButtonLoading?: boolean;
+  closeButtonLoading?: boolean;
   
   saveButtonOnClick?: () => void;
-  saveAndBackButtonOnClick?: () => void;
+  saveAndCloseButtonOnClick?: () => void;
   deleteButtonOnClick?: () => void;
   newButtonOnClick?: () => void;
-  backButtonOnClick?: () => void;
+  closeButtonOnClick?: () => void;
 }
 
 export const DetailToolBar: React.FC<IDetailToolBarProps> = ({
   newButtonText = 'Novo',
   
   saveButtonVisible = true,
-  saveAndBackButtonVisible = false,
+  saveAndCloseButtonVisible = false,
   deleteButtonVisible = true,
   newButtonVisible = true,
-  backButtonVisible = true,
+  closeButtonVisible = true,
 
   saveButtonLoading = false,
-  saveAndBackButtonLoading = false,
+  saveAndCloseButtonLoading = false,
   deleteButtonLoading = false,
   newButtonLoading = false,
-  backButtonLoading = false,
+  closeButtonLoading = false,
   
   saveButtonOnClick,
-  saveAndBackButtonOnClick,
+  saveAndCloseButtonOnClick,
   deleteButtonOnClick,
   newButtonOnClick,
-  backButtonOnClick
+  closeButtonOnClick
 }) => {
 
   const navigate = useNavigate();
@@ -84,23 +84,23 @@ export const DetailToolBar: React.FC<IDetailToolBarProps> = ({
         <Skeleton width={110} height={60} />
       }
 
-      {saveAndBackButtonVisible && !saveAndBackButtonLoading && !lgDown &&
+      {saveAndCloseButtonVisible && !saveAndCloseButtonLoading && !lgDown &&
         <Button 
           variant="outlined" 
           color="primary" 
           disableElevation
           startIcon={<Icon>save</Icon>}
-          onClick={saveAndBackButtonOnClick}>
+          onClick={saveAndCloseButtonOnClick}>
             <Typography 
               variant="button" 
               whiteSpace="nowrap" 
               textOverflow="ellipsis" 
               overflow="hidden">
-                Salvar e voltar
+                Salvar e fechar
             </Typography>
         </Button>
       }
-      {saveAndBackButtonLoading && !lgDown &&
+      {saveAndCloseButtonLoading && !lgDown &&
         <Skeleton width={180} height={60} />
       }
 
@@ -144,28 +144,28 @@ export const DetailToolBar: React.FC<IDetailToolBarProps> = ({
         <Skeleton width={110} height={60} />
       }
 
-      { backButtonVisible && 
-        (saveButtonVisible || saveAndBackButtonVisible ||  deleteButtonVisible || newButtonVisible) && 
+      { closeButtonVisible && 
+        (saveButtonVisible || saveAndCloseButtonVisible ||  deleteButtonVisible || newButtonVisible) && 
         <Divider variant="middle" orientation="vertical" />
       }
 
-      {backButtonVisible && !backButtonLoading &&
+      {closeButtonVisible && !closeButtonLoading &&
         <Button 
           variant="outlined" 
           color="primary" 
           disableElevation
           startIcon={<Icon>arrow_back</Icon>}
-          onClick={backButtonOnClick || (() => { navigate(-1)})}>
+          onClick={closeButtonOnClick || (() => { navigate(-1)})}>
             <Typography 
               variant="button" 
               whiteSpace="nowrap" 
               textOverflow="ellipsis" 
               overflow="hidden">
-                Voltar
+                Fechar
             </Typography>
         </Button>
       }
-      {backButtonLoading && 
+      {closeButtonLoading && 
         <Skeleton width={110} height={60} />
       }
 

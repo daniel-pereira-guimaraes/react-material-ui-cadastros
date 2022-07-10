@@ -10,15 +10,9 @@
   "cidades": [
     {
       "id": 2,
-      "nome": "ARIQUEMES",
+      "nome": "Ariquemes",
       "ddd": "69",
       "codigoIBGE": "999999"
-    },
-    {
-      "id": 6,
-      "nome": "Presidente Médicix",
-      "ddd": "69",
-      "codigoIBGE": "123457"
     },
     {
       "id": 8,
@@ -28,7 +22,7 @@
     },
     {
       "id": 9,
-      "nome": "VILHENA",
+      "nome": "Vilhena",
       "ddd": "69",
       "codigoIBGE": "123451"
     },
@@ -69,15 +63,9 @@
     },
     {
       "id": 17,
-      "nome": "Nova Cidade",
+      "nome": "Ji-Paraná",
       "ddd": "69",
-      "codigoIBGE": "21321321"
-    },
-    {
-      "id": 18,
-      "nome": "Segunda cidade teste",
-      "ddd": "",
-      "codigoIBGE": ""
+      "codigoIBGE": "4654654"
     }
   ]
 }

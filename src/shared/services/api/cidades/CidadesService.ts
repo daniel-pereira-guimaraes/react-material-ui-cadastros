@@ -38,7 +38,7 @@ const getAll = async(page = 1, filter = ''): Promise<TCidades | Error> => {
 
 const getById = async(id: number): Promise<ICidade | Error> => {
   try {
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    //await new Promise(resolve => setTimeout(resolve, 3000));
     const { data } = await Api.get(`/cidades/${id}`);
     if (data) 
       return data;
