@@ -9,8 +9,8 @@
   ],
   "cidades": [
     {
-      "id": 2,
-      "nome": "Ariquemes"
+      "nome": "Ariquemes",
+      "id": 2
     },
     {
       "id": 6,
@@ -21,8 +21,8 @@
       "nome": "Pimenta Bueno"
     },
     {
-      "id": 9,
-      "nome": "Vilhena"
+      "nome": "VLH",
+      "id": 9
     },
     {
       "id": 10,
@@ -31,6 +31,18 @@
     {
       "id": 12,
       "nome": "Alvorada"
+    },
+    {
+      "nome": "São Paulo",
+      "id": 13
+    },
+    {
+      "nome": "Rio de Janeiro",
+      "id": 14
+    },
+    {
+      "nome": "São Carlos",
+      "id": 15
     }
   ]
 }

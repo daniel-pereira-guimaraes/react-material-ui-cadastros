@@ -10,10 +10,6 @@ import { useEffect, useRef, useState } from "react";
 import { VTextField } from "../../shared/forms";
 //import { LinearProgress } from "@mui/material";
 
-interface IFormData {
-  nome: string;
-}
-
 export const DetalheCidade: React.FC = () => {
 
   const navigate = useNavigate();
@@ -36,8 +32,12 @@ export const DetalheCidade: React.FC = () => {
         } else {
           console.log(result);
           setCidade(result);
+          formRef.current?.setData(result);
         }
       });
+    }
+    return () => {
+      setIsLoading(false);
     }
   }, [id]);
   
@@ -52,7 +52,6 @@ export const DetalheCidade: React.FC = () => {
   
   const handleSaveAndBackButtonClick = () => {
     formRef.current?.submitForm();
-    handleBackButtonClick();
   }
 
   const handleDeleteButtonClick = () => {
@@ -72,10 +71,27 @@ export const DetalheCidade: React.FC = () => {
     navigate('/cidades/detalhe/nova');
   }
   
-  const handleFormSubmit = (data: IFormData) => {
-    console.log(data);
+  const handleFormSubmit = (data: ICidade) => {
+    if (novaCidade) {
+      CidadesService.create(data)
+        .then(result => {
+          if (result instanceof Error)
+            alert(result.message);
+          else
+            navigate(`/cidades/detalhe/${result}`);
+        });
+    } else {
+      CidadesService.updateById(data)
+        .then(result => {
+          if (result instanceof Error)
+            alert(result.message);
+          else {
+            alert('Dados salvos com sucesso!');
+            // Como recarregar os dados??
+          }
+        });
+    };
   }
-
 
   // { isLoading && // <LinearProgress variant="indeterminate"/> }
 
@@ -94,12 +110,20 @@ export const DetalheCidade: React.FC = () => {
           deleteButtonOnClick={handleDeleteButtonClick}
           newButtonOnClick={handleNewButtonOnClick}
           backButtonOnClick={handleBackButtonClick}
+          saveButtonLoading={isLoading}
+          saveAndBackButtonLoading={isLoading}
+          deleteButtonLoading={isLoading}
         />
       }>
 
-        <Form ref={formRef} onSubmit={(dados) => console.log(dados)}>
-          <VTextField name="nome"/>
-        </Form>
+      <Form 
+        ref={formRef} 
+        onSubmit={handleFormSubmit}
+      >
+      
+        <VTextField placeholder="Nome da cidade" name="nome"/>
+      
+      </Form>
 
     </BasePageLayout>
   );
