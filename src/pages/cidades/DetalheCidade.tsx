@@ -1,13 +1,18 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { Form } from '@unform/web';
+import { FormHandles } from "@unform/core";
 
 import { BasePageLayout } from "../../shared/layouts"
 import { DetailToolBar } from "../../shared/components"
 import { CidadesService, ICidade } from "../../shared/services/api/cidades/CidadesService";
 import { Environment } from "../../shared/environment";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { VTextField } from "../../shared/forms";
 //import { LinearProgress } from "@mui/material";
+
+interface IFormData {
+  nome: string;
+}
 
 export const DetalheCidade: React.FC = () => {
 
@@ -15,7 +20,9 @@ export const DetalheCidade: React.FC = () => {
   const { id = 'nova' } = useParams<'id'>();
   const [cidade, setCidade] = useState<ICidade>();
   const [isLoading, setIsLoading] = useState(false);
-  const title = id === 'nova' ? 'Nova cidade' : cidade?.nome;
+  const formRef = useRef<FormHandles>(null);
+  const novaCidade = id === 'nova';
+  const title = novaCidade ? 'Nova cidade' : cidade?.nome;
 
   useEffect(() => {
     if (id !== 'nova') {
@@ -33,13 +40,22 @@ export const DetalheCidade: React.FC = () => {
       });
     }
   }, [id]);
-
-  const handleSave = (goToBack: boolean = false) => {
-    alert('Salvando...' + goToBack);
-    goToBack && navigate(-1);
+  
+  
+  const handleBackButtonClick = () => {
+    navigate('/cidades');
+  }
+  
+  const handleSaveButtonClick = () => {
+    formRef.current?.submitForm();
+  }
+  
+  const handleSaveAndBackButtonClick = () => {
+    formRef.current?.submitForm();
+    handleBackButtonClick();
   }
 
-  const handleDelete = () => {
+  const handleDeleteButtonClick = () => {
     //eslint-disable-next-line
     if (confirm(Environment.CONF_EXCLUIR_REGISTRO)) {
       CidadesService.deleteById(Number(id))
@@ -47,10 +63,19 @@ export const DetalheCidade: React.FC = () => {
         if (result instanceof Error)
           alert(result.message);
         else
-          navigate(-1);
+          handleBackButtonClick();
       }); 
     }
   }
+  
+  const handleNewButtonOnClick = () => {
+    navigate('/cidades/detalhe/nova');
+  }
+  
+  const handleFormSubmit = (data: IFormData) => {
+    console.log(data);
+  }
+
 
   // { isLoading && // <LinearProgress variant="indeterminate"/> }
 
@@ -63,21 +88,17 @@ export const DetalheCidade: React.FC = () => {
         <DetailToolBar
           saveAndBackButtonVisible
           newButtonText="Nova"
-          deleteButtonVisible={id !== 'nova'}
-          saveButtonOnClick={() => handleSave(false)}
-          saveAndBackButtonOnClick={() => handleSave(true)}
-          deleteButtonOnClick={handleDelete}
-          newButtonOnClick={() => navigate('/cidades/detalhe/nova')}
-          backButtonOnClick={() => navigate('/cidades')}
+          deleteButtonVisible={!novaCidade}
+          saveButtonOnClick={handleSaveButtonClick}
+          saveAndBackButtonOnClick={handleSaveAndBackButtonClick}
+          deleteButtonOnClick={handleDeleteButtonClick}
+          newButtonOnClick={handleNewButtonOnClick}
+          backButtonOnClick={handleBackButtonClick}
         />
       }>
 
-        <Form onSubmit={(dados) => console.log(dados)}>
-
+        <Form ref={formRef} onSubmit={(dados) => console.log(dados)}>
           <VTextField name="nome"/>
-
-          <button type="submit">Submit</button>
-
         </Form>
 
     </BasePageLayout>
