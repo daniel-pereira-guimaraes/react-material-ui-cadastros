@@ -2,7 +2,7 @@ import { Environment } from "../../../environment";
 import { Api } from "../axios-config";
 
 export interface ICidade {
-  id?: number;
+  id?: number | null;
   nome: string;
   ddd: string;
   codigoIBGE: string;

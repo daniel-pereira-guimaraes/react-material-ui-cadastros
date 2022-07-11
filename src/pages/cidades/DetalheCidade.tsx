@@ -8,9 +8,13 @@ import { BasePageLayout } from "../../shared/layouts"
 import { Environment } from "../../shared/environment";
 import { DetailToolBar } from "../../shared/components"
 import { CidadesService, ICidade } from "../../shared/services/api/cidades/CidadesService";
+import '../../shared/forms/YupLocaleBr';
 
 const formValidationSchema: yup.SchemaOf<ICidade> = yup.object().shape({
-  id: yup.number().notRequired(),
+  id: yup.number()
+    .transform((currentValue, originalValue) => {
+      return originalValue === '' ? null : currentValue;
+    }).nullable(),
   nome: yup.string().required().min(3).label('Nome'),
   ddd: yup.string().required().length(2).label('DDD'),
   codigoIBGE: yup.string().required().length(7).label('Código IBGE')
