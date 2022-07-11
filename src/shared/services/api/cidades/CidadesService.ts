@@ -2,7 +2,7 @@ import { Environment } from "../../../environment";
 import { Api } from "../axios-config";
 
 export interface ICidade {
-  id: number;
+  id?: number;
   nome: string;
   ddd: string;
   codigoIBGE: string;
@@ -52,7 +52,7 @@ const getById = async(id: number): Promise<ICidade | Error> => {
 const create = async(dados: Omit<ICidade, 'id'>): Promise<number | Error> => {
   try {
     const { data } = await Api.post<ICidade>('/cidades', dados);
-    if (data) 
+    if (data && data.id) 
       return data.id;
     return new Error(Environment.ERRO_ACESSO_DADOS);
   } catch(error) {

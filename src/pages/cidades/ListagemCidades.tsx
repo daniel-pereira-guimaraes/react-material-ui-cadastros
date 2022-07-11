@@ -56,7 +56,6 @@ export const ListagemCidades: React.FC = () => {
     }
   }
 
-  console.log('Renderizando ListagemCidades');
   return (
     <BasePageLayout 
       title="Cidades"
@@ -95,10 +94,10 @@ export const ListagemCidades: React.FC = () => {
                   {smUp && <TableCell size="small">{row.ddd}</TableCell>}
                   {mdUp && <TableCell size="small">{row.codigoIBGE}</TableCell>}
                   <TableCell size="small">
-                    <IconButton size="small" onClick={() => navigate(`/cidades/detalhe/${row.id}`)}>
+                    <IconButton size="small" onClick={() => navigate(`/cidades/detalhe/${Number(row.id)}`)}>
                       <Icon>edit</Icon>
                     </IconButton>
-                    <IconButton size="small" onClick={()=> handleDelete(row.id)}>
+                    <IconButton size="small" onClick={()=> handleDelete(Number(row.id))}>
                       <Icon>delete</Icon>
                     </IconButton>
                   </TableCell>
