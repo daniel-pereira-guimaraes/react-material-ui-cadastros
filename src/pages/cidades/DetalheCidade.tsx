@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { Box, Grid, LinearProgress, Paper, Typography } from "@mui/material";
 import * as yup from 'yup';
 
-import { useVForm, VForm, VTextField } from "../../shared/forms";
+import { IVFormErrors, useVForm, VForm, VTextField } from "../../shared/forms";
 import { BasePageLayout } from "../../shared/layouts"
 import { Environment } from "../../shared/environment";
 import { DetailToolBar } from "../../shared/components"
@@ -99,7 +99,7 @@ export const DetalheCidade: React.FC = () => {
         };
       })
       .catch((errors: yup.ValidationError) => {
-        const validationErrors: { [key: string]: string } = {};
+        const validationErrors: IVFormErrors = {};
         errors.inner.forEach(error => {
           if (error.path) validationErrors[error.path] = error.message;
         });
