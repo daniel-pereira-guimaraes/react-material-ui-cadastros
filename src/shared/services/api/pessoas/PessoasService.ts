@@ -36,6 +36,7 @@ const getAll = async(page = 1, filter = ''): Promise<TPessoasResult | Error> => 
 
 const getById = async(id: number): Promise<IPessoa | Error> => {
   try {
+    //await new Promise(resolve => setTimeout(resolve, 3000));
     const { data } = await Api.get(`/pessoas/${id}`);
     if (data) 
       return data;

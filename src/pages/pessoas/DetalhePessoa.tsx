@@ -9,6 +9,7 @@ import { Environment } from "../../shared/environment";
 import { DetailToolBar } from "../../shared/components"
 import { PessoasService, IPessoa } from "../../shared/services/api/pessoas/PessoasService";
 import '../../shared/forms/YupLocaleBr';
+import { AutoCompleteCidade } from "./components/AutoCompleteCidade";
 
 const formValidationSchema: yup.SchemaOf<IPessoa> = yup.object().shape({
   id: yup.number().notRequired()
@@ -48,7 +49,7 @@ export const DetalhePessoa: React.FC = () => {
         });
     } else {
       formRef.current?.setData(
-        { id: '', nome: '', email: '', cidadeId: '' }
+        { id: '', nome: '', email: '', cidadeId: undefined }
       );
     }
     return () => {
@@ -170,12 +171,7 @@ export const DetalhePessoa: React.FC = () => {
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <VTextField
-                  fullWidth
-                  name="cidadeId"
-                  label="Cidade"
-                  disabled={isLoading}
-                />
+                <AutoCompleteCidade isExternalLoading={isLoading} />
               </Grid>
             </Grid>
 

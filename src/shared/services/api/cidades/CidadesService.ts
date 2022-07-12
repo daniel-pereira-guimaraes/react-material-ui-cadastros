@@ -19,7 +19,6 @@ const getAll = async(page = 1, filter = ''): Promise<TCidadesResult | Error> => 
   try {
     //await new Promise(resolve => setTimeout(resolve, 1000));
     const urlRelativa = `/cidades?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`;
-    console.log(urlRelativa);
     const { data, headers } = await Api.get(urlRelativa);
 
     if (data) 

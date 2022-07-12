@@ -83,11 +83,11 @@ export const ListagemPessoas: React.FC = () => {
 
           <TableHead>
             <TableRow>
-              {mdUp && <TableCell size="small">ID</TableCell>}
+              {mdUp && <TableCell size="small" width={50}>ID</TableCell>}
               <TableCell size="small">Nome</TableCell>
               {smUp && <TableCell size="small">E-mail</TableCell>}
               {mdUp && <TableCell size="small">Cidade</TableCell>}
-              <TableCell size="small">Ações</TableCell>
+              <TableCell size="small" width={70}>Ações</TableCell>
             </TableRow>
           </TableHead>
 
