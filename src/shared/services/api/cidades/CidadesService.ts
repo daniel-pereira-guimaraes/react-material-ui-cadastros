@@ -8,14 +8,14 @@ export interface ICidade {
   codigoIBGE: string;
 }
 
-export type ICidades = ICidade[];
+export type TCidades = ICidade[];
 
-type TCidades = {
-  data: ICidades;
+type TCidadesResult = {
+  data: TCidades;
   totalCount: number;
 }
 
-const getAll = async(page = 1, filter = ''): Promise<TCidades | Error> => {
+const getAll = async(page = 1, filter = ''): Promise<TCidadesResult | Error> => {
   try {
     //await new Promise(resolve => setTimeout(resolve, 1000));
     const urlRelativa = `/cidades?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`;

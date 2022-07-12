@@ -1,21 +1,23 @@
 import { Environment } from "../../../environment";
 import { Api } from "../axios-config";
 
-interface IPessoa {
-  id: number;
-  nomeCompleto: string;
-  email: string;
+export interface IPessoa {
+  id?: number | null;
+  nome: string;
+  email?: string;
   cidadeId: number;
 }
 
-type TPessoas = {
-  data: IPessoa[];
+export type TPessoas = IPessoa[];
+
+export type TPessoasResult = {
+  data: TPessoas;
   totalCount: number;
 }
 
-const getAll = async(page = 1, filter = ''): Promise<TPessoas | Error> => {
+const getAll = async(page = 1, filter = ''): Promise<TPessoasResult | Error> => {
   try {
-    const urlRelativa = `/pessoas?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nomeCompleto_like${filter}`;
+    const urlRelativa = `/pessoas?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like${filter}`;
     const { data, headers } = await Api.get(urlRelativa);
 
     if (data) 
@@ -47,8 +49,8 @@ const getById = async(id: number): Promise<IPessoa | Error> => {
 const create = async(dados: Omit<IPessoa, 'id'>): Promise<number | Error> => {
   try {
     const { data } = await Api.post<IPessoa>('/pessoas', dados);
-    if (data) 
-      return data.id;
+    if (data && data.id) 
+      return Number(data.id);
     return new Error(Environment.ERRO_ACESSO_DADOS);
   } catch(error) {
     console.error(error);

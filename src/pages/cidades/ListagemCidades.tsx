@@ -1,10 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
-import { ListToolBar } from "../../shared/components";
+import { 
+  Icon, IconButton, LinearProgress, Pagination, Paper, Table, 
+  TableBody, TableCell, TableContainer, TableHead, TableRow, 
+  useMediaQuery, useTheme 
+ } from '@mui/material';
+
+ import { ListToolBar } from "../../shared/components";
 import { useDebounce } from "../../shared/hooks";
 import { BasePageLayout } from "../../shared/layouts";
-import { CidadesService, ICidades } from "../../shared/services/api/cidades/CidadesService";
+import { CidadesService, TCidades } from "../../shared/services/api/cidades/CidadesService";
 import { Environment } from "../../shared/environment";
 
 export const ListagemCidades: React.FC = () => {
@@ -12,7 +17,7 @@ export const ListagemCidades: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
-  const [rows, setRows] = useState<ICidades>([]);
+  const [rows, setRows] = useState<TCidades>([]);
   const navigate = useNavigate();
   const debounce = useDebounce();
   const theme = useTheme();

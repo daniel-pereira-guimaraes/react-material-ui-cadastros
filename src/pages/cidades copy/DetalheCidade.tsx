@@ -11,7 +11,7 @@ import { CidadesService, ICidade } from "../../shared/services/api/cidades/Cidad
 import '../../shared/forms/YupLocaleBr';
 
 const formValidationSchema: yup.SchemaOf<ICidade> = yup.object().shape({
-  id: yup.number().notRequired()
+  id: yup.number()
     .transform((currentValue, originalValue) => {
       return originalValue === '' ? null : currentValue;
     }).nullable(),
@@ -26,7 +26,7 @@ export const DetalheCidade: React.FC = () => {
   const { id = 'nova' } = useParams<'id'>();
   const [title, setTitle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { formRef, save, saveAndClose, actionAfterSave } = useVForm();
+  const { formRef, save, saveAndClose: saveAndBack, actionAfterSave } = useVForm();
   const novaCidade = id === 'nova';
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export const DetalheCidade: React.FC = () => {
     }
   }, [id, novaCidade, navigate, formRef]);
 
-  const handleCloseButtonClick = () => {
+  const handleBackButtonClick = () => {
     navigate('/cidades');
   }
 
@@ -65,7 +65,7 @@ export const DetalheCidade: React.FC = () => {
           if (result instanceof Error)
             alert(result.message);
           else
-            handleCloseButtonClick();
+            handleBackButtonClick();
         });
     }
   }
@@ -120,10 +120,10 @@ export const DetalheCidade: React.FC = () => {
           newButtonText="Nova"
           deleteButtonVisible={!novaCidade}
           saveButtonOnClick={save}
-          saveAndCloseButtonOnClick={saveAndClose}
+          saveAndCloseButtonOnClick={saveAndBack}
           deleteButtonOnClick={handleDeleteButtonClick}
           newButtonOnClick={handleNewButtonOnClick}
-          closeButtonOnClick={handleCloseButtonClick}
+          closeButtonOnClick={handleBackButtonClick}
           saveButtonLoading={isLoading}
           saveAndCloseButtonLoading={isLoading}
           deleteButtonLoading={isLoading}

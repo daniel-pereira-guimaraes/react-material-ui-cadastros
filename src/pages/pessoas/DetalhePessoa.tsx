@@ -7,32 +7,35 @@ import { IVFormErrors, useVForm, VForm, VTextField } from "../../shared/forms";
 import { BasePageLayout } from "../../shared/layouts"
 import { Environment } from "../../shared/environment";
 import { DetailToolBar } from "../../shared/components"
-import { CidadesService, ICidade } from "../../shared/services/api/cidades/CidadesService";
+import { PessoasService, IPessoa } from "../../shared/services/api/pessoas/PessoasService";
 import '../../shared/forms/YupLocaleBr';
 
-const formValidationSchema: yup.SchemaOf<ICidade> = yup.object().shape({
+const formValidationSchema: yup.SchemaOf<IPessoa> = yup.object().shape({
   id: yup.number().notRequired()
     .transform((currentValue, originalValue) => {
       return originalValue === '' ? null : currentValue;
     }).nullable(),
   nome: yup.string().required().min(3).label('Nome'),
-  ddd: yup.string().required().length(2).label('DDD'),
-  codigoIBGE: yup.string().required().length(7).label('Código IBGE')
+  email: yup.string().email().label('E-mail'),
+  cidadeId: yup.number().required().min(1).label('Cidade')
+  .transform((currentValue, originalValue) => {
+    return originalValue === '' ? null : currentValue;
+  }).nullable()
 });
 
-export const DetalheCidade: React.FC = () => {
+export const DetalhePessoa: React.FC = () => {
 
   const navigate = useNavigate();
   const { id = 'nova' } = useParams<'id'>();
   const [title, setTitle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { formRef, save, saveAndClose, actionAfterSave } = useVForm();
-  const novaCidade = id === 'nova';
+  const novaPessoa = id === 'nova';
 
   useEffect(() => {
-    if (!novaCidade) {
+    if (!novaPessoa) {
       setIsLoading(true);
-      CidadesService.getById(Number(id))
+      PessoasService.getById(Number(id))
         .then((result) => {
           setIsLoading(false);
           if (result instanceof Error) {
@@ -45,22 +48,22 @@ export const DetalheCidade: React.FC = () => {
         });
     } else {
       formRef.current?.setData(
-        { id: '', nome: '', ddd: '', codigoIBGE: '' }
+        { id: '', nome: '', email: '', cidadeId: '' }
       );
     }
     return () => {
       setIsLoading(false);
     }
-  }, [id, novaCidade, navigate, formRef]);
+  }, [id, novaPessoa, navigate, formRef]);
 
   const handleCloseButtonClick = () => {
-    navigate('/cidades');
+    navigate('/pessoas');
   }
 
   const handleDeleteButtonClick = () => {
     //eslint-disable-next-line
     if (confirm(Environment.CONF_EXCLUIR_REGISTRO)) {
-      CidadesService.deleteById(Number(id))
+      PessoasService.deleteById(Number(id))
         .then(result => {
           if (result instanceof Error)
             alert(result.message);
@@ -71,34 +74,34 @@ export const DetalheCidade: React.FC = () => {
   }
 
   const handleNewButtonOnClick = () => {
-    navigate('/cidades/detalhe/nova');
+    navigate('/pessoas/detalhe/nova');
   }
 
-  const handleFormSubmit = (dados: ICidade) => {
+  const handleFormSubmit = (dados: IPessoa) => {
 
     formValidationSchema
       .validate(dados, { abortEarly: false })
       .then((dadosValidados) => {
         setIsLoading(true);
-        if (novaCidade) {
-          CidadesService.create(dadosValidados)
+        if (novaPessoa) {
+          PessoasService.create(dadosValidados)
             .then(result => {
               setIsLoading(false);
               if (result instanceof Error)
                 alert(result.message);
               else if (actionAfterSave() === 'close')
-                navigate('/cidades');
+                navigate('/pessoas');
               else
-                navigate(`/cidades/detalhe/${result}`);
+                navigate(`/pessoas/detalhe/${result}`);
             });
         } else {
-          CidadesService.updateById(dadosValidados)
+          PessoasService.updateById(dadosValidados)
             .then(result => {
               setIsLoading(false);
               if (result instanceof Error)
                 alert(result.message);
               else if (actionAfterSave() === 'close')
-                navigate('/cidades');
+                navigate('/pessoas');
             });
         };
       })
@@ -113,12 +116,12 @@ export const DetalheCidade: React.FC = () => {
 
   return (
     <BasePageLayout
-      title={novaCidade ? 'Nova cidade' : title || 'Detalhes da cidade'}
+      title={novaPessoa ? 'Nova pessoa' : title || 'Detalhes da pessoa'}
       toolBar={
         <DetailToolBar
           saveAndCloseButtonVisible
           newButtonText="Nova"
-          deleteButtonVisible={!novaCidade}
+          deleteButtonVisible={!novaPessoa}
           saveButtonOnClick={save}
           saveAndCloseButtonOnClick={saveAndClose}
           deleteButtonOnClick={handleDeleteButtonClick}
@@ -146,7 +149,7 @@ export const DetalheCidade: React.FC = () => {
                   disabled
                 />
               </Grid>
-              <Grid item xs={8} sm={9} md={10}>
+              <Grid item xs={12} sm={9} md={10}>
                 <VTextField
                   fullWidth
                   name="nome"
@@ -158,17 +161,19 @@ export const DetalheCidade: React.FC = () => {
             </Grid>
 
             <Grid container item direction="row" spacing={2}>
-              <Grid item xs={4} sm={3} md={2}>
+              <Grid item xs={12} md={6}>
                 <VTextField
-                  name="ddd"
-                  label="DDD"
+                  fullWidth
+                  name="email"
+                  label="E-mail"
                   disabled={isLoading}
                 />
               </Grid>
-              <Grid item xs={8} sm={5} md={3}>
+              <Grid item xs={12} md={6}>
                 <VTextField
-                  name="codigoIBGE"
-                  label="Código IBGE"
+                  fullWidth
+                  name="cidadeId"
+                  label="Cidade"
                   disabled={isLoading}
                 />
               </Grid>

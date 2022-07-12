@@ -1,10 +1,22 @@
 {
   "pessoas": [
     {
-      "id": 4,
-      "email": "dompedro1@servidor.com.br",
-      "nome": "Dom Pedro Primeiro",
+      "id": 1,
+      "nome": "João da Silva e Souza",
+      "email": "joao@servidor.com.br",
       "cidadeId": 2
+    },
+    {
+      "id": 2,
+      "nome": "José Leal",
+      "email": "leal@servidor.com.br",
+      "cidadeId": 2
+    },
+    {
+      "id": 3,
+      "nome": "Maria de Fátima",
+      "email": "maria@servidor.com.br",
+      "cidadeId": 8
     }
   ],
   "cidades": [

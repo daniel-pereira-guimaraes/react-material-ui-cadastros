@@ -13,7 +13,7 @@ export const useVForm = () => {
     formRef.current?.submitForm();
   }, []);
 
-  const handleSaveAndBack = useCallback(() => {
+  const handleSaveAndClose = useCallback(() => {
     actionAfterSave.current = 'close';
     formRef.current?.submitForm();
   }, []);
@@ -25,7 +25,7 @@ export const useVForm = () => {
   return { 
     formRef,
     save: handleSave,
-    saveAndBack: handleSaveAndBack,
+    saveAndClose: handleSaveAndClose,
     actionAfterSave: handleActionAfterSave
   };
 }
