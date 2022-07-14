@@ -20,5 +20,5 @@ const auth = async (email: string, password: string): Promise<IAuth | Error> => 
 }
 
 export const AuthService = {
-
+  auth
 };
