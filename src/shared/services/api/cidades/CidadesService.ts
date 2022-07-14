@@ -17,7 +17,7 @@ type TCidadesResult = {
 
 const getAll = async(page = 1, filter = ''): Promise<TCidadesResult | Error> => {
   try {
-    //await new Promise(resolve => setTimeout(resolve, 1000));
+    //await new Promise(resolve => setTimeout(resolve, 3000));
     const urlRelativa = `/cidades?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`;
     const { data, headers } = await Api.get(urlRelativa);
 
@@ -35,7 +35,7 @@ const getAll = async(page = 1, filter = ''): Promise<TCidadesResult | Error> => 
   }
 };
 
-const getById = async(id: number): Promise<ICidade | Error> => {
+const getById = async (id: number): Promise<ICidade | Error> => {
   try {
     //await new Promise(resolve => setTimeout(resolve, 3000));
     const { data } = await Api.get(`/cidades/${id}`);
@@ -48,7 +48,7 @@ const getById = async(id: number): Promise<ICidade | Error> => {
   }
 };
 
-const create = async(dados: Omit<ICidade, 'id'>): Promise<number | Error> => {
+const create = async (dados: Omit<ICidade, 'id'>): Promise<number | Error> => {
   try {
     const { data } = await Api.post<ICidade>('/cidades', dados);
     if (data && data.id) 
@@ -60,7 +60,7 @@ const create = async(dados: Omit<ICidade, 'id'>): Promise<number | Error> => {
   }
 };
 
-const updateById = async(dados: ICidade): Promise<void | Error> => {
+const updateById = async (dados: ICidade): Promise<void | Error> => {
   try {
     await Api.put(`/cidades/${dados.id}`, dados);
   } catch(error) {
@@ -69,7 +69,7 @@ const updateById = async(dados: ICidade): Promise<void | Error> => {
   }
 };
 
-const deleteById = async(id: number): Promise<void | Error> => {
+const deleteById = async (id: number): Promise<void | Error> => {
   try {
     await Api.delete(`/cidades/${id}`);
   } catch(error) {

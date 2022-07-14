@@ -18,16 +18,15 @@ export const AppRoutes = () => {
                 path: '/'
             },
             {
+                icon: 'location_city',
+                label: 'Cidades',
+                path: '/cidades'
+            },
+            {
                 icon: 'star',
                 label: 'Pessoas',
                 path: '/pessoas'
             },
-            {
-                icon: 'location_city',
-                label: 'Cidades',
-                path: '/cidades'
-            }
-
         ]);
     }, [setDrawerOptions])
 

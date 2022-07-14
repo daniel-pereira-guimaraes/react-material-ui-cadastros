@@ -69,6 +69,7 @@ export const AutoCompleteCidade: React.FC<IAutoCompleteCidadeProps> = ({
       popupIcon={isLoading && <CircularProgress size={20} />}
       options={options}
       value={selectedOption}
+      defaultValue={defaultValue}
       onInputChange={(_, value) => setBusca(value)}
       onChange={(_, option) => {
         setSelectedId(option?.id);
