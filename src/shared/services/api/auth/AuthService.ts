@@ -5,6 +5,7 @@ interface IAuth {
 }
 
 const auth = async (email: string, password: string): Promise<IAuth | Error> => {
+  await new Promise(resolve => setTimeout(resolve, 3000)); // Para testes!
   try {
     /* Segundo o professor, com backend real deve-se usar o método POST, passando as
        credencias no corpo da requisição, mas aqui usamos GET porque estamos usando

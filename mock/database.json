@@ -79,5 +79,9 @@
       "ddd": "69",
       "codigoIBGE": "4654654"
     }
-  ]
+  ],
+  "auth": {
+    "accessToken":"aaa.bbb.ccc.ddd"
+  }
+
 }

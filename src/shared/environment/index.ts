@@ -35,4 +35,9 @@ export const Environment = {
    */
   CONF_EXCLUIR_REGISTRO: 'Confirma a exclusão?',
 
+  /**
+   * Identificação do token de acesso em localStorage.
+   */
+  LOCAL_STORAGE__ACCESS_TOKEN: 'ACCESS_TOKEN'
+
 }
